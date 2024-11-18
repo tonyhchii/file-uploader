@@ -7,7 +7,8 @@ const path = require("node:path");
 const assetsPath = path.join(__dirname, "public");
 const viewsPath = path.join(__dirname, "views");
 const signUpRouter = require("./routes/signUpRouter");
-const logInRouter = require("./routes/logInRouter");
+const logInRouter = require("./routes/loginRouter");
+const passport = require("passport");
 
 app.set("views", viewsPath);
 app.set("view engine", "ejs");
@@ -38,5 +39,9 @@ app.use((req, res, next) => {
 app.use("/log-in", logInRouter);
 
 app.use("/sign-up", signUpRouter);
+
+app.get("/", (req, res) => {
+  res.send("<a href='/log-in'>Log In</a> <a href='/sign-up'>Sign Up</a>");
+});
 
 app.listen(3000);

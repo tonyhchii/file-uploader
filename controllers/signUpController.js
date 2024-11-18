@@ -12,9 +12,12 @@ const validateForm = [
     .isAlphanumeric()
     .withMessage("Username needs to be alphanumeric")
     .custom(async (value) => {
-      const user = await db.getUserByUsername(value);
-      console.log(user);
-      if (user.length > 0) {
+      const user = await poolInstance.accounts.findFirst({
+        where: {
+          username: value,
+        },
+      });
+      if (user) {
         throw new Error("Username already in use");
       }
     }),
@@ -38,10 +41,11 @@ const signUpUser = [
           return next(err);
         }
         // add database entry here
-        await poolInstance.user.create({
+        await poolInstance.accounts.create({
           data: {
             username: req.body.username,
             password: hashedPassword,
+            email: req.body.email,
           },
         });
       });

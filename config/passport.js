@@ -5,9 +5,10 @@ const poolInstance = require("../db/pool");
 
 const verifyCallBack = async (username, password, done) => {
   try {
-    const user = poolInstance.User.findFirst({
+    const user = await poolInstance.accounts.findFirst({
       where: { username: username },
     });
+    console.log(user);
     if (!user) {
       return done(null, false, { message: "Incorrect username" });
     }
@@ -17,7 +18,7 @@ const verifyCallBack = async (username, password, done) => {
       return done(null, false, { message: "Incorrect password" });
     }
     return done(null, user);
-  } catch {
+  } catch (err) {
     return done(err);
   }
 };
@@ -29,7 +30,7 @@ passport.serializeUser((user, done) => {
 
 passport.deserializeUser(async (id, done) => {
   try {
-    const user = await prisma.user.findUnique({
+    const user = await poolInstance.accounts.findUnique({
       where: { id: id },
     });
 

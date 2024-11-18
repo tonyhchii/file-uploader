@@ -20,19 +20,18 @@ model Session {
   expiresAt DateTime
 }
 
-model User {
+model accounts {
   id       Int      @id @default(autoincrement())
   email    String   @unique
-  name     String?
   username String   @unique
   password String
   folder   folder[]
 }
 
 model folder {
-  id     Int    @id @default(autoincrement())
+  id     Int       @id @default(autoincrement())
   name   String
-  user   User?  @relation(fields: [userId], references: [id])
+  user   accounts? @relation(fields: [userId], references: [id])
   userId Int?
   file   file[]
 }
