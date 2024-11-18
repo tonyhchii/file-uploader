@@ -1,10 +1,4 @@
-const { Pool } = require("pool");
-const poolInstance = new Pool({
-  host: "localhost",
-  user: "tonyhuang",
-  database: "fileuploader",
-  password: "123qwe",
-  port: 5432,
-});
+const { PrismaClient } = require("@prisma/client");
+const prisma = new PrismaClient();
 
-module.exports = poolInstance;
+module.exports = prisma;
