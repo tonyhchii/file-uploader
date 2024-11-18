@@ -41,7 +41,16 @@ app.use("/log-in", logInRouter);
 app.use("/sign-up", signUpRouter);
 
 app.get("/", (req, res) => {
-  res.send("<a href='/log-in'>Log In</a> <a href='/sign-up'>Sign Up</a>");
+  res.render("index");
+});
+
+app.get("/log-out", (req, res, next) => {
+  req.logout((err) => {
+    if (err) {
+      return next(err);
+    }
+    res.redirect("/");
+  });
 });
 
 app.listen(3000);
