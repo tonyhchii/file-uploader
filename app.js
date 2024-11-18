@@ -6,6 +6,8 @@ const app = express();
 const path = require("node:path");
 const assetsPath = path.join(__dirname, "public");
 const viewsPath = path.join(__dirname, "views");
+const signUpRouter = require("./routes/signUpRouter");
+const logInRouter = require("./routes/logInRouter");
 
 app.set("views", viewsPath);
 app.set("view engine", "ejs");
@@ -32,5 +34,9 @@ app.use((req, res, next) => {
   res.locals.user = req.user;
   next();
 });
+
+app.use("/log-in", logInRouter);
+
+app.use("/sign-up", signUpRouter);
 
 app.listen(3000);
