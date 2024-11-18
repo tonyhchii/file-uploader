@@ -2,7 +2,7 @@ const { Pool } = require("pool");
 const poolInstance = new Pool({
   host: "localhost",
   user: "tonyhuang",
-  database: "file-uploader",
+  database: "fileuploader",
   password: "123qwe",
   port: 5432,
 });
