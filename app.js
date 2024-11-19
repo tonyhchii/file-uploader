@@ -8,6 +8,7 @@ const assetsPath = path.join(__dirname, "public");
 const viewsPath = path.join(__dirname, "views");
 const signUpRouter = require("./routes/signUpRouter");
 const logInRouter = require("./routes/loginRouter");
+const folderRouter = require("./routes/folderRouter");
 const passport = require("passport");
 const fileUploadRouter = require("./routes/fileUploadRouter");
 const createFolderRouter = require("./routes/createFolderRouter");
@@ -50,6 +51,8 @@ app.use("/sign-up", signUpRouter);
 app.use("/upload", fileUploadRouter);
 
 app.use("/create", createFolderRouter);
+
+app.use("/folder", folderRouter);
 
 app.get("/", (req, res) => {
   res.render("index");
