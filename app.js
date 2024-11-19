@@ -9,6 +9,7 @@ const viewsPath = path.join(__dirname, "views");
 const signUpRouter = require("./routes/signUpRouter");
 const logInRouter = require("./routes/loginRouter");
 const passport = require("passport");
+const fileUploadRouter = require("./routes/fileUploadRouter");
 
 app.set("views", viewsPath);
 app.set("view engine", "ejs");
@@ -39,6 +40,8 @@ app.use((req, res, next) => {
 app.use("/log-in", logInRouter);
 
 app.use("/sign-up", signUpRouter);
+
+app.use("/upload", fileUploadRouter);
 
 app.get("/", (req, res) => {
   res.render("index");
