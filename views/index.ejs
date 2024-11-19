@@ -24,9 +24,11 @@
   <div class="body">
     <a href="/create">Create Folder</a>
     <% if(locals.folders)  {%>
-    <% folders.forEach((folder) => { %>
-
-    <% }) %>
+    <ul>
+      <% folders.forEach((folder) => { %>
+      <li><a><%= folder.name  %></a></li>
+      <% }) %>
+    </ul>
     <% } %>
   </div>
 

@@ -10,6 +10,8 @@ const signUpRouter = require("./routes/signUpRouter");
 const logInRouter = require("./routes/loginRouter");
 const passport = require("passport");
 const fileUploadRouter = require("./routes/fileUploadRouter");
+const createFolderRouter = require("./routes/createFolderRouter");
+const poolInstance = require("./db/pool");
 
 app.set("views", viewsPath);
 app.set("view engine", "ejs");
@@ -32,8 +34,12 @@ app.use(
 );
 app.use(passport.session());
 
-app.use((req, res, next) => {
+app.use(async (req, res, next) => {
   res.locals.user = req.user;
+  const folders = await poolInstance.folder.findMany({
+    where: { userId: req.user.id },
+  });
+  res.locals.folders = folders;
   next();
 });
 
@@ -42,6 +48,8 @@ app.use("/log-in", logInRouter);
 app.use("/sign-up", signUpRouter);
 
 app.use("/upload", fileUploadRouter);
+
+app.use("/create", createFolderRouter);
 
 app.get("/", (req, res) => {
   res.render("index");
