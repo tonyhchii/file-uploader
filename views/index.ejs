@@ -21,8 +21,14 @@
       <% } %>
     </div>
   </div>
-  </div>
+  <div class="body">
+    <a href="/create">Create Folder</a>
+    <% if(locals.folders)  {%>
+    <% folders.forEach((folder) => { %>
 
+    <% }) %>
+    <% } %>
+  </div>
 
 </body>
 
